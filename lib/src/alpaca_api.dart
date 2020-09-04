@@ -1,14 +1,14 @@
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
-
-import 'package:alpaca/src/requests/account.dart';
-import 'package:alpaca/src/requests/asset.dart';
-import 'package:alpaca/src/requests/calendar.dart';
-import 'package:alpaca/src/requests/clock.dart';
-import 'package:alpaca/src/requests/data/bars.dart';
-import 'package:alpaca/src/requests/order.dart';
-import 'package:alpaca/src/requests/position.dart';
+import 'requests/account.dart';
+import 'requests/asset.dart';
+import 'requests/calendar.dart';
+import 'requests/clock.dart';
+import 'requests/data/bars.dart';
+import 'requests/order.dart';
+import 'requests/position.dart';
+import 'requests/watchlist.dart';
 
 /// Alpaca REST API wrapper.
 class AlpacaApi {
@@ -37,6 +37,9 @@ class AlpacaApi {
   ///
 
   Future<http.Response> getAccount() => _executeAlpacaRequest(Account.get());
+
+  Future<http.Response> getPortfolioHistory() =>
+      _executeAlpacaRequest(Account.getPortfolioHistory());
 
   ///
   /// Calendar
@@ -81,6 +84,9 @@ class AlpacaApi {
 
   Future<http.Response> getPosition(String symbol) =>
       _executeAlpacaRequest(Position.getOne(symbol));
+
+  Future<http.Response> closePosition(String symbol) =>
+      _executeAlpacaRequest(Position.close(symbol));
 
   ///
   /// Orders
@@ -153,6 +159,23 @@ class AlpacaApi {
         after: after,
         until: until,
       ));
+
+  ///
+  /// Watchlists
+  ///
+
+  Future<http.Response> getWatchlists() =>
+      _executeAlpacaRequest(Watchlist.get());
+
+  Future<http.Response> getWatchlist(String id) =>
+      _executeAlpacaRequest(Watchlist.getOne(id));
+
+  Future<http.Response> addToWatchlist(String watchlistId, String symbol) =>
+      _executeAlpacaRequest(Watchlist.add(watchlistId, symbol));
+
+  Future<http.Response> removeFromWatchlist(
+          String watchlistId, String symbol) =>
+      _executeAlpacaRequest(Watchlist.remove(watchlistId, symbol));
 
   /// Executes the given [AlpacaRequest].
   ///

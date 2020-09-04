@@ -1,5 +1,6 @@
-import 'package:alpaca/src/alpaca_api.dart';
-import 'package:alpaca/src/util/formatting.dart';
+import '../../../src/util/formatting.dart';
+
+import '../../../alpaca.dart';
 
 /// Contains all bars-related requests.
 class Bars {

@@ -19,9 +19,6 @@ const fullHeaders = {
   'APCA-API-SECRET-KEY': fakeSecretKey,
 };
 
-// TODO: Add tests for orders.
-// TODO: Add tests for positions.
-
 void main() {
   AlpacaApi api;
   MockClient mockClient = AlpacaMockitoClient();
@@ -199,7 +196,7 @@ void main() {
 
         test('getBars throws with bad symbols argument', () async {
           final goodTimeframe = '1Min';
-          final badSymbol = 123;  // is not a String or List of Strings.
+          final badSymbol = 123; // is not a String or List of Strings.
 
           final getBars = () => api.getBars(goodTimeframe, badSymbol);
 
@@ -233,6 +230,5 @@ void main() {
         });
       });
     });
-
   });
 }

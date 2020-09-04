@@ -1,4 +1,4 @@
-import 'package:alpaca/src/alpaca_api.dart';
+import '../alpaca_api.dart';
 
 /// Contains all position-related requests.
 class Position {
@@ -15,5 +15,13 @@ class Position {
     }
 
     return AlpacaRequest.get('/v2/positions/$symbol');
+  }
+
+  static AlpacaRequest close(String symbol) {
+    if (symbol == null || symbol.isEmpty) {
+      throw ArgumentError('symbol must be a non-empty String: $symbol');
+    }
+
+    return AlpacaRequest.delete('/v2/positions/$symbol');
   }
 }
